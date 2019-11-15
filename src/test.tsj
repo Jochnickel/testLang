@@ -1,0 +1,29 @@
+Joachim = "lolo"
+
+fabio = "lala"
+
+laura = "chillmal"
+
+{ // 1
+    Heinz = "lili"
+
+    erich = "lulu"
+
+    fabio = "asdp"
+
+    &laura = "chilltjetzt"
+
+    print(fabio())    // [asdp]
+}
+
+print(fabio())    // [lala]
+
+{ // 2
+
+}
+
+joachim = ()=>{
+    return fabio;
+}
+
+print(Joachim())  // [lolo]

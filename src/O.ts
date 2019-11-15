@@ -16,7 +16,7 @@ class Data implements O {
 class Label implements O {
 	public static list: {[any:string]: any} = {};
 
-	private name: string;
+	private readonly name: string;
 
 	equals: [O,boolean][] = [];
 
@@ -31,19 +31,19 @@ class Label implements O {
 }
 
 
-const _Eq = (eq: boolean, ...args: O[][]) =>{
-	const Labels = args[0].filter(v=>(v instanceof Label)) as Label[];
-	const Datas = args[0].filter(v=>!(v instanceof Label));
-	if (Labels.length<1) throw new TypeError("Need at least one Label");
-	Labels.forEach(v1=>args.forEach(v2=>v1.equals.push([v2,eq])));
+const _Eq = (eq: boolean, ...args: O[]) =>{
+	const labels = args.filter(v=>(v instanceof Label)) as Label[];
+	const datas = args.filter(v=>!(v instanceof Label));
+	if (labels.length<1) throw new TypeError("Need at least one Label");
+	labels.forEach(v1=>args.forEach(v2=>v1.equals.push([v2,eq])));
 };
 
 export const Ne = (...args: O[]) => {
-	_Eq(false, args);
+	_Eq(false, ...args);
 };
 
 export const Eq = (...args: O[]) => {
-	_Eq(true, args);
+	_Eq(true, ...args);
 };
 
 export const L = (label: string): Label => {
