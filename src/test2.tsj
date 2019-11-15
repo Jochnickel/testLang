@@ -1,0 +1,19 @@
+import Auto
+
+fabio = joachim
+
+joachim = "geiler Typ"
+
+print(fabio())  // [geiler Typ]
+print(joachim())  // [geiler Typ]
+
+fabio != joachim
+
+print(fabio())  // []
+
+joachim = Auto
+
+console.log(joachim.kannFahren()) // [true]
+console.log(joachim())              // [geiler Typ]
+
+joachim != Auto
