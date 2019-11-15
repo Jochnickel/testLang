@@ -18,6 +18,16 @@ laura = "chillmal"
 
 print(fabio())    // [lala]
 
+fabio = "asd"
+
+print(fabio())      // [asd,lala]
+
+print(laura())      // [chilltjetzt,chillmal]
+
+laura = fabio
+
+print(laura())      // [asd,lala,chilltjetzt,chillmal]
+
 { // 2
 
 }
