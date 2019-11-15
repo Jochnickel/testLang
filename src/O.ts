@@ -1,29 +1,66 @@
-class O{
-    equals: any = [];
+interface O {
 }
 
-function eq(...args: O[]) {
-    args.forEach(el1 => args.forEach(el2=>{
-        if(el1 !== el2){
-            el1.equals.push([el2,true]);
-        }
-    }));
+class Data implements O {
+	private _value: any;
+	get value(){ return this._value};
+
+	constructor(value?: any) {
+		this._value = value;
+	}
+
+	public static EMPTY = new Data();
 }
 
-function neq(...args: O[]) {
-    args.forEach(el1 => args.forEach(el2=>{
-        if(el1 !== el2){
-            el1.equals.push([el2,false]);
-        }
-    }));
+
+class Label implements O {
+	public static list: {[any:string]: any} = {};
+
+	private name: string;
+
+	equals: [O,boolean][] = [];
+
+	constructor(label: string){
+		Label.list[label] = Data.EMPTY;
+		this.name = label;
+	}
+	get value(){
+		return Label.list[this.name];
+
+	}
 }
 
-const Joachim = new O();
-const President = new O();
 
-const vierPlusDrei = new O();
-const einsPlusSechs = new O();
+const _Eq = (eq: boolean, ...args: O[][]) =>{
+	const Labels = args[0].filter(v=>(v instanceof Label)) as Label[];
+	const Datas = args[0].filter(v=>!(v instanceof Label));
+	if (Labels.length<1) throw new TypeError("Need at least one Label");
+	Labels.forEach(v1=>args.forEach(v2=>v1.equals.push([v2,eq])));
+};
 
-eq(Joachim, President);
-eq(vierPlusDrei, einsPlusSechs);
-console.log(Joachim);
+export const Ne = (...args: O[]) => {
+	_Eq(false, args);
+};
+
+export const Eq = (...args: O[]) => {
+	_Eq(true, args);
+};
+
+export const L = (label: string): Label => {
+	if (Label.list[label]){
+		return Label.list[label];
+	}
+	return new Label(label);
+};
+
+
+
+
+
+
+
+
+
+
+
+
